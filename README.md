@@ -1,6 +1,6 @@
-# Session based Login Auth.
+# E-Book Store
 
-This is a react app which has the basic routes and api calls configured for a session based authentication
+This repository contains the frontend code of SEM V mini-project.
 
 ## Installing dependencies
 
@@ -24,4 +24,14 @@ To start the server run this command
 npm start
 //or
 yarn start
+```
+
+## Helper Scripts
+
+### `initial-start`
+
+To install all dependencies initially and run the server use:
+
+```
+npm run initial-start
 ```
