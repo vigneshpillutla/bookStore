@@ -1,0 +1,43 @@
+body {
+  background-color: var(--body-bg);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--light-text-color);
+}
+.signup-card {
+  background-color: var(--blank-bg);
+  max-width: 35%;
+  margin: 4% auto;
+  box-shadow: 2px 2px 3px grey;
+  border-radius: 16px;
+  padding: 32px 0px;
+  font-size: 16px;
+}
+.heading-2 {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.form-input {
+  width: 70%;
+  margin: 24px auto;
+}
+.signup-btn {
+  padding: 8px 16px;
+  width: 70%;
+  margin: 48px auto 24px auto;
+}
+.google-signup-btn {
+  padding: 8px 16px;
+  width: 70%;
+  margin: 0px auto;
+}
+@media only screen and (max-width: 1000px) {
+  .signup-card {
+    max-width: 50%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .signup-card {
+    max-width: 80%;
+  }
+}

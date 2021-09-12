@@ -1,0 +1,48 @@
+:root {
+  --body-bg: rgb(231, 231, 231);
+  --blank-bg: rgb(255, 255, 255);
+  --primary-bg: rgb(27, 131, 27);
+  --secondary-bg: rgb(122, 219, 122);
+  --primary-hover-bg: rgb(33, 168, 33);
+  --light-text-color: rgb(41, 41, 41);
+  --dark-text-color: white;
+}
+* {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+.highlighted-btn {
+  border: none;
+  background-color: var(--primary-bg);
+  color: var(--dark-text-color);
+  display: block;
+  border-radius: 20px;
+}
+.highlighted-btn:hover {
+  background: var(--primary-hover-bg);
+}
+.highlighted-btn:active {
+  background: rgb(35, 145, 35);
+}
+.border-btn {
+  border: 1px solid var(--primary-bg);
+  background-color: var(--blank-bg);
+  display: block;
+  border-radius: 4px;
+  box-shadow: 2px 2px 1px lightgrey;
+}
+.border-btn:active {
+  background-color: var(--secondary-bg);
+}
+.simple-textbox {
+  border: none;
+  background: rgb(230, 230, 230);
+  border-radius: 5px;
+  padding: 8px;
+  display: block;
+}
+.simple-textbox:focus {
+  border-bottom: 1px solid rgb(124, 124, 124);
+}
