@@ -1,8 +1,10 @@
-import "../../stylesheets/SignUp.css"
+import '../../stylesheets/SignUp.css';
 
 import useAuth from 'customHooks/useAuth';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { Divider } from 'antd';
 
 const SignUpPage = () => {
   const auth = useAuth();
@@ -11,7 +13,7 @@ const SignUpPage = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
+    password: ''
   };
   const [formData, setFormData] = useState(defaultForm);
   const handleFormChange = (e) => {
@@ -37,7 +39,7 @@ const SignUpPage = () => {
       <div className="heading-2">Sign Up for Free</div>
       <form>
         <input
-        className="simple-textbox form-input"
+          className="simple-textbox form-input"
           type="text"
           name="firstName"
           id="firstname"
@@ -47,7 +49,7 @@ const SignUpPage = () => {
           onChange={handleFormChange}
         />
         <input
-        className="simple-textbox form-input"
+          className="simple-textbox form-input"
           type="text"
           name="lastName"
           id="lastName"
@@ -57,7 +59,7 @@ const SignUpPage = () => {
           onChange={handleFormChange}
         />
         <input
-        className="simple-textbox form-input"
+          className="simple-textbox form-input"
           type="email"
           name="email"
           id="email"
@@ -67,7 +69,7 @@ const SignUpPage = () => {
           onChange={handleFormChange}
         />
         <input
-        className="simple-textbox form-input"
+          className="simple-textbox form-input"
           type="password"
           name="password"
           id="password"
@@ -75,9 +77,19 @@ const SignUpPage = () => {
           value={formData.password}
           onChange={handleFormChange}
         />
-        <button className="highlighted-btn signup-btn" onClick={onSignUp}>Sign Up</button>
+        <button className="highlighted-btn signup-btn" onClick={onSignUp}>
+          Sign Up
+        </button>
       </form>
-      <button className="border-btn google-signup-btn" onClick={handleGoogle}>Sign in with Google</button>
+      <div className="divider-container">
+        <Divider orientation="center">OR</Divider>
+      </div>
+      <div className="google-btn" onClick={handleGoogle}>
+        <div className="google-icon">
+          <FcGoogle size={25} />
+        </div>
+        <span>Sign Up with Google</span>
+      </div>
     </div>
   );
 };
