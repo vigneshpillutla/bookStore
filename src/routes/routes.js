@@ -1,18 +1,18 @@
-import { LoginPage, SignUpPage, HomePage } from 'components';
+import { LoginPage, SignUpPage, HomePage } from "components";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: HomePage,
     exact: true,
     private: true,
   },
   {
-    path: '/login',
+    path: "/login",
     component: LoginPage,
   },
   {
-    path: '/signUp',
+    path: "/signUp",
     component: SignUpPage,
   },
 ];
