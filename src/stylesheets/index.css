@@ -13,6 +13,10 @@
 *:focus {
   outline: none;
 }
+#root,
+.App {
+  height: 100%;
+}
 .highlighted-btn {
   border: none;
   background-color: var(--primary-bg);

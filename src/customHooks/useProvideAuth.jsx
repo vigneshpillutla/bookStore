@@ -43,7 +43,7 @@ const useProvideAuth = () => {
     signUp,
     logout,
     getUser,
-    googleSignIn,
+    googleSignIn
   };
 };
 

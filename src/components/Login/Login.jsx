@@ -9,11 +9,10 @@ const LoginPage = () => {
   let { from } = location.state || { from: { pathname: '/' } };
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
+    password: ''
   });
   useEffect(() => {
     if (auth.user) {
-      console.log(auth.user);
       history.replace(from);
     }
   }, [auth.user]);

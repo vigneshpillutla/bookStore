@@ -4,17 +4,17 @@ const routes = [
   {
     path: '/',
     component: HomePage,
-    exact: true,
-    private: true,
+    exact: true
+    // private: true
   },
   {
     path: '/login',
-    component: LoginPage,
+    component: LoginPage
   },
   {
     path: '/signUp',
-    component: SignUpPage,
-  },
+    component: SignUpPage
+  }
 ];
 
 export default routes;

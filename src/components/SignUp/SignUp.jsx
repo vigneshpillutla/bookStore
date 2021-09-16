@@ -28,6 +28,7 @@ const SignUpPage = () => {
     e.preventDefault();
     auth.signUp(formData, () => {
       setFormData(defaultForm);
+      auth.getUser();
       history.replace('/');
     });
   };

@@ -1,5 +1,4 @@
 body {
-  background-color: var(--body-bg);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--light-text-color);
 }

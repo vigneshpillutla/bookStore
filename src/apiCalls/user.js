@@ -15,14 +15,14 @@ const login = async (email, password, done) => {
     `${authUrl}/login`,
     {
       email,
-      password,
+      password
     },
     {
       ...axiosCng,
       withCredentials: true,
       headers: {
-        'Cache-Control': 'no-cache',
-      },
+        'Cache-Control': 'no-cache'
+      }
     }
   );
   displayMsg(response, 'Login Successful!', response.data?.msg);
@@ -34,8 +34,8 @@ const getUser = async (done) => {
     ...axiosCng,
     withCredentials: true,
     headers: {
-      'Cache-Control': 'no-cache',
-    },
+      'Cache-Control': 'no-cache'
+    }
   });
   done(response.data);
 };
@@ -44,8 +44,8 @@ const logout = async (done) => {
     ...axiosCng,
     withCredentials: true,
     headers: {
-      'Cache-Control': 'no-cache',
-    },
+      'Cache-Control': 'no-cache'
+    }
   });
   displayMsg(response, 'Successfuly logged out!');
   done(response.data);
@@ -56,8 +56,8 @@ const signUp = async (user, done) => {
     ...axiosCng,
     withCredentials: true,
     headers: {
-      'Cache-Control': 'no-cache',
-    },
+      'Cache-Control': 'no-cache'
+    }
   });
 
   displayMsg(response, 'User signed Up!', response.data?.msg);
@@ -69,7 +69,7 @@ const UserAuth = {
   logout,
   signUp,
   getUser,
-  googleSignIn,
+  googleSignIn
 };
 
 export default UserAuth;
