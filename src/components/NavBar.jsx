@@ -1,5 +1,6 @@
 import useAuth from 'customHooks/useAuth';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -119,7 +120,9 @@ const NavBar = () => {
       }}
     >
       <Toolbar>
-        <Avatar className={classes.appLogo}>L</Avatar>
+        <Link to="/">
+          <Avatar className={classes.appLogo}>L</Avatar>
+        </Link>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />

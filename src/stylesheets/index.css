@@ -16,6 +16,7 @@
 #root,
 .App {
   height: 100%;
+  scroll-behavior: smooth;
 }
 .highlighted-btn {
   border: none;

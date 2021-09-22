@@ -1,4 +1,4 @@
-import { LoginPage, SignUpPage, HomePage } from 'components';
+import { LoginPage, SignUpPage, HomePage, ViewBook } from 'components';
 
 const routes = [
   {
@@ -6,6 +6,10 @@ const routes = [
     component: HomePage,
     exact: true
     // private: true
+  },
+  {
+    path: '/books/view/:bookId',
+    component: ViewBook
   },
   {
     path: '/login',
