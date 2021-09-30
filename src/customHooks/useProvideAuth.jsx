@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import UserAuth from 'apiCalls/user.js';
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  const isLoggedIn = () => {
+    return !!user;
+  };
   const login = (email, password, onSuccess) => {
     UserAuth.login(email, password, (res) => {
       if (res.success) {
@@ -11,14 +15,15 @@ const useProvideAuth = () => {
       }
     });
   };
-  const googleSignIn = () => {
-    UserAuth.googleSignIn();
+  const googleSignIn = (done = () => {}) => {
+    UserAuth.googleSignIn(done);
   };
-  const getUser = () => {
+  const getUser = (done = () => {}) => {
     UserAuth.getUser((res) => {
       if (res.success) {
         setUser(res.user);
       }
+      done();
     });
   };
   const signUp = (user, onSuccess) => {
@@ -43,7 +48,10 @@ const useProvideAuth = () => {
     signUp,
     logout,
     getUser,
-    googleSignIn
+    googleSignIn,
+    isLoggedIn,
+    loading,
+    setLoading
   };
 };
 

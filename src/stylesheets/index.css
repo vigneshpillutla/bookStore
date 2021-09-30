@@ -13,6 +13,10 @@
 *:focus {
   outline: none;
 }
+body {
+  font-family: 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+  color: var(--light-text-color);
+}
 #root,
 .App {
   height: 100%;

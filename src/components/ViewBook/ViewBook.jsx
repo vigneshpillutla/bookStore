@@ -146,7 +146,7 @@ const ViewBook = () => {
             <Excerpt />
           </Grid>
           <Grid item xs={12} className={classes.moreLikeThis}>
-            <Typography variant="h4">More Like This</Typography>
+            <Typography variant="h4">MORE LIKE THIS</Typography>
             <BookShowCase
               getData={library.getBooksByFilter}
               filters={filters}

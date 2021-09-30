@@ -2,7 +2,8 @@ import {
   getCoreGenres,
   getEditorsChoice,
   getBooksByFilter,
-  getSingleBook
+  getSingleBook,
+  getAllBooks
 } from 'apiCalls/books';
 
 const defaultFunction = () => {};
@@ -32,6 +33,13 @@ class BookLibrary {
     getSingleBook(bookId, (res) => {
       const { book } = res;
       done(book);
+    });
+  }
+
+  getAllBooks(done = defaultFunction) {
+    getAllBooks((res) => {
+      const { books } = res;
+      done(books);
     });
   }
 }

@@ -6,15 +6,18 @@ import ProvideAuth from 'components/ProvideAuth';
 import { ThemeProvider } from '@material-ui/core';
 import LightTheme from './theme/LightTheme.jsx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { GuestProvider } from './components/AuthModal/AuthModal.jsx';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={LightTheme}>
       <ProvideAuth>
-        <Router>
-          <Switch>
-            <Route path="/" component={App} />
-          </Switch>
-        </Router>
+        <GuestProvider>
+          <Router>
+            <Switch>
+              <Route path="/" component={App} />
+            </Switch>
+          </Router>
+        </GuestProvider>
       </ProvideAuth>
     </ThemeProvider>
   </React.StrictMode>,

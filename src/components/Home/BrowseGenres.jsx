@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import BookLibrary from 'common/bookUtil';
 import media from '../../media';
+import { Link } from 'react-router-dom';
 
 const library = new BookLibrary();
 const getFileName = (name) => {
@@ -82,13 +83,15 @@ const BrowseGenres = () => {
           </Grid>
           {genres.map((genre) => (
             <Grid item xs={12} sm={6} md={3} data-aos="fade-up">
-              <Card elevation={3} className={classes.genreCard}>
-                <CardMedia
-                  className={classes.media}
-                  image={media[getFileName(genre)]}
-                />
-                <CardContent>{genre}</CardContent>
-              </Card>
+              <Link to={`/explore?genres=${genre}`}>
+                <Card elevation={3} className={classes.genreCard}>
+                  <CardMedia
+                    className={classes.media}
+                    image={media[getFileName(genre)]}
+                  />
+                  <CardContent>{genre}</CardContent>
+                </Card>
+              </Link>
             </Grid>
           ))}
         </Grid>

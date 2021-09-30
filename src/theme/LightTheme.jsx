@@ -18,6 +18,9 @@ const LightTheme = createTheme({
       primary: '#333',
       secondary: '#fff'
     }
+  },
+  typography: {
+    fontFamily: '"Poppins","Roboto", "Helvetica", "Arial", sans-serif'
   }
 });
 

@@ -1,7 +1,3 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--light-text-color);
-}
 .signup-card {
   background-color: var(--blank-bg);
   max-width: 35%;

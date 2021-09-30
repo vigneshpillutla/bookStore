@@ -8,11 +8,15 @@ import useAuth from 'customHooks/useAuth';
 import NavBar from 'components/NavBar';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import FullScreenLoader from 'components/LoadingSpinner/LoadingSpinner';
 function App() {
   const auth = useAuth();
   useEffect(() => {
     Aos.init();
-    auth.getUser();
+    auth.setLoading(true);
+    auth.getUser(() => {
+      auth.setLoading(false);
+    });
   }, []);
   return (
     <div className="App">
@@ -22,6 +26,7 @@ function App() {
           <RouteWithSubRoutes key={i} {...route} />
         ))}
       </Switch>
+      <FullScreenLoader />
     </div>
   );
 }

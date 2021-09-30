@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardStyle: {
     height: '100%',
+    width: '70%',
     background: 'gray',
     marginRight: '20px',
     position: 'relative',
@@ -68,6 +69,24 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
+export const BookCard = ({ bookCover, bookId }) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.cardContainer}>
+      <Card elevation={3} className={classes.cardStyle}>
+        <CardMedia image={bookCover} className={classes.media} />
+        <CardContent className={classes.cardContent}>
+          <Link to={`/books/view/${bookId}`}>
+            <Button variant="contained" color="primary">
+              View More
+            </Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 const BookShowCase = ({ title, getData, filters, ignoreId }) => {
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -83,7 +102,7 @@ const BookShowCase = ({ title, getData, filters, ignoreId }) => {
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 2500,
     pauseOnHover: true,
     nextArrow: <ArrowForwardIos classes={{ root: classes.arrowStyle }} />,
@@ -105,18 +124,19 @@ const BookShowCase = ({ title, getData, filters, ignoreId }) => {
           <Grid item xs={12}>
             <Slider {...settings}>
               {data.map(({ bookCover, bookId }) => (
-                <div className={classes.cardContainer}>
-                  <Card elevation={3} className={classes.cardStyle}>
-                    <CardMedia image={bookCover} className={classes.media} />
-                    <CardContent className={classes.cardContent}>
-                      <Link to={`/books/view/${bookId}`}>
-                        <Button variant="contained" color="primary">
-                          View More
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </div>
+                <BookCard bookCover={bookCover} bookId={bookId}></BookCard>
+                // <div className={classes.cardContainer}>
+                //   <Card elevation={3} className={classes.cardStyle}>
+                //     <CardMedia image={bookCover} className={classes.media} />
+                //     <CardContent className={classes.cardContent}>
+                //       <Link to={`/books/view/${bookId}`}>
+                //         <Button variant="contained" color="primary">
+                //           View More
+                //         </Button>
+                //       </Link>
+                //     </CardContent>
+                //   </Card>
+                // </div>
               ))}
             </Slider>
           </Grid>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, makeStyles, Typography, Button } from '@material-ui/core';
 import BookReader from '../../media/bookReader1.svg';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   heroGrid: {
@@ -45,9 +46,11 @@ const Hero = () => {
             </Typography>
           </Grid>
           <Grid item data-aos="fade-right">
-            <Button variant="contained" color="secondary" size="large">
-              Explore
-            </Button>
+            <Link to="/explore">
+              <Button variant="contained" color="secondary" size="large">
+                Explore
+              </Button>
+            </Link>
           </Grid>
         </Grid>
         <Grid item sm={12} md={6} data-aos="fade-left">
