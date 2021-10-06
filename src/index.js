@@ -7,18 +7,22 @@ import { ThemeProvider } from '@material-ui/core';
 import LightTheme from './theme/LightTheme.jsx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { GuestProvider } from './components/AuthModal/AuthModal.jsx';
+import { SnackbarProvider } from 'notistack';
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={LightTheme}>
-      <ProvideAuth>
-        <GuestProvider>
-          <Router>
-            <Switch>
-              <Route path="/" component={App} />
-            </Switch>
-          </Router>
-        </GuestProvider>
-      </ProvideAuth>
+      <SnackbarProvider maxSnack={3}>
+        <ProvideAuth>
+          <GuestProvider>
+            <Router>
+              <Switch>
+                <Route path="/" component={App} />
+              </Switch>
+            </Router>
+          </GuestProvider>
+        </ProvideAuth>
+      </SnackbarProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

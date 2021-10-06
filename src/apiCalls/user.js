@@ -10,7 +10,7 @@ const socialAuth = `${serverPath}/api/oauth`;
 const googleSignIn = () => {
   window.open(`${socialAuth}/google`, '_self');
 };
-const login = async (email, password, done) => {
+const login = async ({ email, password }, done) => {
   const response = await axios.post(
     `${authUrl}/login`,
     {

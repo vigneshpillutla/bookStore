@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import UserAuth from 'apiCalls/user.js';
+import { useSnackbar } from 'notistack';
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const isLoggedIn = () => {
     return !!user;
   };
-  const login = (email, password, onSuccess) => {
-    UserAuth.login(email, password, (res) => {
-      if (res.success) {
-        setUser(res.user);
+  const login = (formData, onSuccess) => {
+    UserAuth.login(formData, (res) => {
+      const { success, user, msg } = res;
+      let variant = 'error';
+      if (success) {
+        setUser(user);
+        variant = 'success';
         onSuccess();
       }
+      enqueueSnackbar(msg, { variant });
+      setLoading(false);
     });
   };
   const googleSignIn = (done = () => {}) => {
@@ -28,18 +35,24 @@ const useProvideAuth = () => {
   };
   const signUp = (user, onSuccess) => {
     UserAuth.signUp(user, (res) => {
-      if (res.success) {
-        setUser(res.user);
+      const { success, user, msg } = res;
+      let variant = 'error';
+      if (success) {
+        setUser(user);
+        variant = 'success';
         onSuccess();
       }
+      enqueueSnackbar(msg, { variant });
+      setLoading(false);
     });
   };
-  const logout = (onSuccess) => {
+  const logout = () => {
     UserAuth.logout((res) => {
       if (res.success) {
         setUser(null);
-        onSuccess();
+        enqueueSnackbar(res.msg, { variant: 'success' });
       }
+      setLoading(false);
     });
   };
   return {

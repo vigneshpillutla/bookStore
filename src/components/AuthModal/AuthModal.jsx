@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import {
   makeStyles,
   Typography,
@@ -13,6 +13,7 @@ import {
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { TimeToLeave } from '@material-ui/icons';
 import useAuth from 'customHooks/useAuth';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -104,7 +105,6 @@ export const useAuthModal = () => {
 const GoogleAuthBtn = () => {
   const classes = useStyles();
   const auth = useAuth();
-  console.log(auth);
   return (
     <Button className={classes.googleAuthBtn} onClick={auth.googleSignIn}>
       <AiOutlineGoogle />
@@ -112,28 +112,52 @@ const GoogleAuthBtn = () => {
     </Button>
   );
 };
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  const updatedState = { ...state };
+  updatedState[type] = payload;
+  return updatedState;
+};
 const AuthModal = () => {
   const { open, handleCloseModal, formType, toggleFormType } = useGuest();
   const auth = useAuth();
   const classes = useStyles();
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  };
+  const [formData, dispatch] = useReducer(reducer, initialFormData);
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    dispatch({
+      type: name,
+      payload: value
+    });
+  };
   const formFields = [
     {
       type: 'text',
       label: 'First Name',
-      page: 'signup'
+      page: 'signup',
+      name: 'firstName'
     },
     {
       type: 'text',
       label: 'Last Name',
-      page: 'signup'
+      page: 'signup',
+      name: 'lastName'
     },
     {
       type: 'email',
-      label: 'Email'
+      label: 'Email',
+      name: 'email'
     },
     {
       type: 'password',
-      label: 'Password'
+      label: 'Password',
+      name: 'password'
     }
   ];
   const formTexts = {
@@ -149,6 +173,20 @@ const AuthModal = () => {
     }
   };
   const { title, bottomText, navTxt } = formTexts[formType];
+  const { enqueueSnackbar } = useSnackbar();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    auth.setLoading(true);
+    if (formType === 'login') {
+      auth.login(formData, () => {
+        handleCloseModal();
+      });
+    } else {
+      auth.signUp(formData, () => {
+        handleCloseModal();
+      });
+    }
+  };
   return (
     <div>
       <Modal open={open} onClose={handleCloseModal} className={classes.modal}>
@@ -168,7 +206,7 @@ const AuthModal = () => {
             <Grid item>
               <Divider />
             </Grid>
-            {formFields.map(({ type, label, page }) => {
+            {formFields.map(({ type, label, page, name }) => {
               const toShow = page === formType || !page;
               return (
                 toShow && (
@@ -180,6 +218,9 @@ const AuthModal = () => {
                       variant="outlined"
                       color="secondary"
                       type={type}
+                      name={name}
+                      value={formData[name]}
+                      onChange={handleFormChange}
                     />
                   </Grid>
                 )
@@ -194,7 +235,9 @@ const AuthModal = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <Button variant="contained">{title}</Button>
+              <Button variant="contained" onClick={handleFormSubmit}>
+                {title}
+              </Button>
             </Grid>
           </Grid>
         </Card>

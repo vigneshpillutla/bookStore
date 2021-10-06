@@ -67,8 +67,6 @@ const BrowseGenres = () => {
   useEffect(() => {
     library.getCoreGenres((coreGenres) => {
       setGenres(coreGenres);
-      console.log(coreGenres);
-      coreGenres.forEach((genre) => console.log(getFileName(genre)));
     });
   }, []);
   return (

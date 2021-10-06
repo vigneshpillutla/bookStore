@@ -56,7 +56,6 @@ const ViewBook = () => {
       setBook(bookData);
       const filters = bookData.genres?.map((genre) => ['genres', genre]);
       setFilters(filters);
-      console.log(bookData);
     });
     window.scrollTo({
       top: 0,

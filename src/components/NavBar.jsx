@@ -11,7 +11,11 @@ import {
   Tab,
   Button,
   TextField,
-  IconButton
+  IconButton,
+  Card,
+  Popover,
+  Popper,
+  Paper
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -20,6 +24,7 @@ import AuthModal from './AuthModal/AuthModal';
 import { useGuest } from './AuthModal/AuthModal';
 import BookLibrary from '../common/bookUtil';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -105,23 +110,58 @@ const useStyles = makeStyles((theme) => ({
   },
   outline: {
     border: 0
+  },
+  avatarContainer: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  profileOptions: {
+    padding: '1rem 2rem',
+    position: 'fixed',
+    right: 10,
+    marginTop: '1rem',
+    transition: 'height .35s ease-in'
+  },
+  popup: {
+    zIndex: theme.zIndex.appBar + 1,
+    right: 0,
+    '& > *': {
+      position: 'absolute',
+      top: '4.5rem',
+      right: '3rem',
+      padding: '2rem'
+    }
   }
 }));
 
 const NavBar = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user, logout, setLoading } = useAuth();
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState('');
   const [allBooks, setAllBooks] = useState([]);
   const { setOpen, setFormType } = useGuest();
   const [activePage, setActivePage] = useState(0);
+  const [anchor, setAnchor] = useState(null);
   const library = new BookLibrary();
   const history = useHistory();
+  const btnRef = React.useRef();
+  useEffect(() => {
+    setAnchor(btnRef.current);
+  }, [btnRef]);
+  const openNav = (e) => {
+    setAnchor(btnRef.current);
+  };
+  const closeNav = (e) => {
+    setAnchor(null);
+  };
+  const toggleNav = (e) => {
+    setAnchor(anchor ? null : btnRef);
+  };
   useEffect(() => {
     library.getAllBooks((books) => setAllBooks(books));
   }, []);
   const handleSearch = () => {
-    console.log('clicked', searchValue);
     if (!!searchValue) {
       history.push(`/explore?bookKeyword=${searchValue}`);
     }
@@ -133,6 +173,10 @@ const NavBar = () => {
   const handleActionButton = (type) => {
     setOpen(true);
     setFormType(type);
+  };
+  const handleLogout = () => {
+    setLoading(true);
+    logout();
   };
   const PageNavigation = () => {
     const navTabs = ['Home', 'Explore', 'About', 'Contacts'];
@@ -155,12 +199,46 @@ const NavBar = () => {
     );
   };
   const UserButtons = () => {
+    const open = Boolean(anchor);
+    const id = open ? 'simple-popper' : undefined;
+
+    let initials = '';
+    if (isLoggedIn()) {
+      const { firstName, lastName } = user;
+      initials = (firstName[0] + lastName[0]).toUpperCase();
+    }
     return isLoggedIn() ? (
       <div className={clsx(classes.accActions, classes.authBtns)}>
         <IconButton component="span">
           <ShoppingCartOutlinedIcon />
         </IconButton>
-        <Avatar className={classes.avatar}>VP</Avatar>
+        <div className={classes.avatarContainer}>
+          <Avatar className={classes.avatar}>{initials}</Avatar>
+          <IconButton ref={btnRef} onClick={toggleNav} aria-describedby={id}>
+            <KeyboardArrowDownIcon />
+          </IconButton>
+          {/* <button ref={btnRef} onClick={toggleNav} aria-describedby={id}>
+            toggle
+          </button> */}
+          <Popper
+            id={id}
+            open={open}
+            anchorEl={anchor}
+            onClose={closeNav}
+            placement="right-end"
+            className={classes.popup}
+          >
+            <Paper elevation={3}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleLogout}
+              >
+                Sign Out
+              </Button>
+            </Paper>
+          </Popper>
+        </div>
       </div>
     ) : (
       <div className={classes.authBtns}>
