@@ -125,18 +125,6 @@ const BookShowCase = ({ title, getData, filters, ignoreId }) => {
             <Slider {...settings}>
               {data.map(({ bookCover, bookId }) => (
                 <BookCard bookCover={bookCover} bookId={bookId}></BookCard>
-                // <div className={classes.cardContainer}>
-                //   <Card elevation={3} className={classes.cardStyle}>
-                //     <CardMedia image={bookCover} className={classes.media} />
-                //     <CardContent className={classes.cardContent}>
-                //       <Link to={`/books/view/${bookId}`}>
-                //         <Button variant="contained" color="primary">
-                //           View More
-                //         </Button>
-                //       </Link>
-                //     </CardContent>
-                //   </Card>
-                // </div>
               ))}
             </Slider>
           </Grid>

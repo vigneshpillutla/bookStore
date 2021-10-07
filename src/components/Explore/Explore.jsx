@@ -167,7 +167,7 @@ const Explore = () => {
   useEffect(() => {
     const startOffset = state.currentPage * pageSize;
     dispatch({
-      type: STATE_ACTIONS,
+      type: STATE_ACTIONS.BOOKS,
       payload: allBooks.slice(startOffset, startOffset + pageSize)
     });
   }, [state.currentPage]);
