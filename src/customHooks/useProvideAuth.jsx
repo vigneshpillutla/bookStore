@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import UserAuth from 'apiCalls/user.js';
+import Cart from 'apiCalls/cart.js';
 import { useSnackbar } from 'notistack';
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
   const isLoggedIn = () => {
@@ -29,6 +31,7 @@ const useProvideAuth = () => {
     UserAuth.getUser((res) => {
       if (res.success) {
         setUser(res.user);
+        getCart();
       }
       done();
     });
@@ -55,6 +58,37 @@ const useProvideAuth = () => {
       setLoading(false);
     });
   };
+  const addToCart = (bookId) => {
+    Cart.addToCart(bookId, ({ msg, success, cart }) => {
+      enqueueSnackbar(msg, {
+        variant: success ? 'success' : 'error'
+      });
+      if (success) {
+        setCart(cart);
+      }
+    });
+  };
+  const removeFromCart = (bookId) => {
+    Cart.removeFromCart(bookId, ({ msg, success, cart }) => {
+      enqueueSnackbar(msg, {
+        variant: success ? 'success' : 'error'
+      });
+      if (success) {
+        setCart(cart);
+      }
+    });
+  };
+  const getCart = () => {
+    Cart.getCart((data) => {
+      if (data.success) {
+        setCart(data.cart);
+      }
+    });
+  };
+  const getCartItems = async (done = () => {}) => {
+    const data = await Cart.getCartDetails();
+    done(data);
+  };
   return {
     user,
     login,
@@ -64,7 +98,12 @@ const useProvideAuth = () => {
     googleSignIn,
     isLoggedIn,
     loading,
-    setLoading
+    setLoading,
+    addToCart,
+    removeFromCart,
+    getCart,
+    getCartItems,
+    cart
   };
 };
 

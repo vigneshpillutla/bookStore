@@ -12,6 +12,7 @@ import {
   Backdrop,
   CircularProgress
 } from '@material-ui/core';
+import useAuth from 'customHooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ViewBook = () => {
   const library = new BookLibrary();
+  const { addToCart } = useAuth();
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [filters, setFilters] = useState([]);
@@ -62,6 +64,10 @@ const ViewBook = () => {
       behavior: 'smooth'
     });
   }, [bookId]);
+
+  const handleAddToCart = (bookId) => {
+    addToCart(bookId);
+  };
   const Description = () => {
     const { description } = book;
 
@@ -126,7 +132,11 @@ const ViewBook = () => {
               <Typography>Rating: {book.rating} / 5</Typography>
             </Grid>
             <Grid item xs={12} className={classes.actions}>
-              <Button variant="outlined" color="secondary">
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => handleAddToCart(book.bookId)}
+              >
                 Add to cart
               </Button>
               <Button variant="outlined" color="secondary">

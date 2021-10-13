@@ -15,7 +15,8 @@ import {
   Card,
   Popover,
   Popper,
-  Paper
+  Paper,
+  Badge
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -136,7 +137,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = () => {
-  const { isLoggedIn, user, logout, setLoading } = useAuth();
+  const { isLoggedIn, user, logout, setLoading, cart } = useAuth();
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState('');
   const [allBooks, setAllBooks] = useState([]);
@@ -207,10 +208,13 @@ const NavBar = () => {
       const { firstName, lastName } = user;
       initials = (firstName[0] + lastName[0]).toUpperCase();
     }
+    console.log(cart);
     return isLoggedIn() ? (
       <div className={clsx(classes.accActions, classes.authBtns)}>
-        <IconButton component="span">
-          <ShoppingCartOutlinedIcon />
+        <IconButton>
+          <Badge badgeContent={cart.length} color="secondary">
+            <ShoppingCartOutlinedIcon />
+          </Badge>
         </IconButton>
         <div className={classes.avatarContainer}>
           <Avatar className={classes.avatar}>{initials}</Avatar>

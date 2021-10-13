@@ -1,4 +1,11 @@
-import { LoginPage, SignUpPage, HomePage, ViewBook, Explore } from 'components';
+import {
+  LoginPage,
+  SignUpPage,
+  HomePage,
+  ViewBook,
+  Explore,
+  Cart
+} from 'components';
 
 const routes = [
   {
@@ -10,6 +17,10 @@ const routes = [
   {
     path: '/explore',
     component: Explore
+  },
+  {
+    path: '/cart',
+    component: Cart
   },
   {
     path: '/books/view/:bookId',
