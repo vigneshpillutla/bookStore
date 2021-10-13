@@ -13,7 +13,6 @@ function App() {
   const auth = useAuth();
   useEffect(() => {
     Aos.init();
-    auth.setLoading(true);
     auth.getUser(() => {
       auth.setLoading(false);
     });
@@ -21,11 +20,13 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Switch>
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
-      </Switch>
+      {!auth.loading && (
+        <Switch>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+        </Switch>
+      )}
       <FullScreenLoader />
     </div>
   );

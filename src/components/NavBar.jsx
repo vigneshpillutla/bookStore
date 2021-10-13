@@ -208,14 +208,15 @@ const NavBar = () => {
       const { firstName, lastName } = user;
       initials = (firstName[0] + lastName[0]).toUpperCase();
     }
-    console.log(cart);
     return isLoggedIn() ? (
       <div className={clsx(classes.accActions, classes.authBtns)}>
-        <IconButton>
-          <Badge badgeContent={cart.length} color="secondary">
-            <ShoppingCartOutlinedIcon />
-          </Badge>
-        </IconButton>
+        <Link to="/cart">
+          <IconButton>
+            <Badge badgeContent={cart.length} color="secondary">
+              <ShoppingCartOutlinedIcon />
+            </Badge>
+          </IconButton>
+        </Link>
         <div className={classes.avatarContainer}>
           <Avatar className={classes.avatar}>{initials}</Avatar>
           <IconButton ref={btnRef} onClick={toggleNav} aria-describedby={id}>

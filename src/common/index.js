@@ -20,10 +20,7 @@ const PrivateRoute = ({ route }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
-              state: {
-                from: route.path,
-              },
+              pathname: '/'
             }}
           />
         )
@@ -56,5 +53,5 @@ export const axiosCng = {
   validateStatus: function (status) {
     // Do not reject. We handle the errors gracefully
     return true;
-  },
+  }
 };

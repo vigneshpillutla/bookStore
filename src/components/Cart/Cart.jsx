@@ -67,14 +67,20 @@ const useStyles = makeStyles(() => ({
 
 const Book = ({ book }) => {
   const classes = useStyles();
-
+  const { removeFromCart } = useAuth();
+  const handleRemoveFromCart = (bookId) => {
+    removeFromCart(bookId);
+  };
   return (
     <Grid item xs={12}>
       <img src={book.bookCover} alt="" className={classes.bookThumbnail} />
       <div className={classes.details}>
         <Typography variant="h6">{book.name}</Typography>
         <Typography variant="body2">by {book.author}</Typography>
-        <Button startIcon={<img src={TrashCan} alt="trash-can" />}>
+        <Button
+          startIcon={<img src={TrashCan} alt="trash-can" />}
+          onClick={() => handleRemoveFromCart(book.bookId)}
+        >
           Remove
         </Button>
       </div>

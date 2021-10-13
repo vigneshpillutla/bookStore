@@ -4,7 +4,7 @@ import Cart from 'apiCalls/cart.js';
 import { useSnackbar } from 'notistack';
 const useProvideAuth = () => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -31,9 +31,8 @@ const useProvideAuth = () => {
     UserAuth.getUser((res) => {
       if (res.success) {
         setUser(res.user);
-        getCart();
+        getCart(done);
       }
-      done();
     });
   };
   const signUp = (user, onSuccess) => {
@@ -78,11 +77,12 @@ const useProvideAuth = () => {
       }
     });
   };
-  const getCart = () => {
+  const getCart = (done = () => {}) => {
     Cart.getCart((data) => {
       if (data.success) {
         setCart(data.cart);
       }
+      done();
     });
   };
   const getCartItems = async (done = () => {}) => {

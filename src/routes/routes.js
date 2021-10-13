@@ -20,7 +20,8 @@ const routes = [
   },
   {
     path: '/cart',
-    component: Cart
+    component: Cart,
+    private: true
   },
   {
     path: '/books/view/:bookId',
