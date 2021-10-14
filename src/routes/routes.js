@@ -4,7 +4,8 @@ import {
   HomePage,
   ViewBook,
   Explore,
-  Cart
+  Cart,
+  StripeContainer
 } from 'components';
 
 const routes = [
@@ -34,6 +35,11 @@ const routes = [
   {
     path: '/signUp',
     component: SignUpPage
+  },
+  {
+    path: '/temp/payment',
+    component: StripeContainer,
+    private: true
   }
 ];
 

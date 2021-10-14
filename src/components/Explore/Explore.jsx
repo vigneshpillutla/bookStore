@@ -215,7 +215,7 @@ const Explore = () => {
         xs={2}
         className={classes.filters}
         direction="column"
-        spacing={5}
+        spacing={3}
       >
         <Grid item className={classes.filterItem}>
           <Typography variant="h6">Rating</Typography>

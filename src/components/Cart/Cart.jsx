@@ -7,6 +7,7 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import useAuth from 'customHooks/useAuth';
 import TrashCan from 'media/icons8-trash.svg';
@@ -44,7 +45,8 @@ const useStyles = makeStyles(() => ({
     }
   },
   bookThumbnail: {
-    height: '10rem'
+    height: '10rem',
+    cursor: 'pointer'
   },
   details: {
     position: 'relative',
@@ -73,7 +75,9 @@ const Book = ({ book }) => {
   };
   return (
     <Grid item xs={12}>
-      <img src={book.bookCover} alt="" className={classes.bookThumbnail} />
+      <Link to={`/books/view/${book.bookId}`}>
+        <img src={book.bookCover} alt="" className={classes.bookThumbnail} />
+      </Link>
       <div className={classes.details}>
         <Typography variant="h6">{book.name}</Typography>
         <Typography variant="body2">by {book.author}</Typography>
