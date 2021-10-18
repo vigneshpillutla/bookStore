@@ -10,6 +10,7 @@ import Romance from './Romance.webp';
 import ScienceFiction from './Science Fiction.webp';
 import Thriller from './Thriller.webp';
 import YoungReaders from './Young Readers.webp';
+import EmptyCart from './emptyCart.jpg';
 
 const media = {
   Adventure,
@@ -23,7 +24,8 @@ const media = {
   Romance,
   ScienceFiction,
   Thriller,
-  YoungReaders
+  YoungReaders,
+  EmptyCart
 };
 
 export default media;

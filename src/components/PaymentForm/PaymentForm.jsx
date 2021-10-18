@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  CardElement,
+  useElements,
+  useStripe,
+  CardNumberElement,
+  CardCvcElement,
+  CardExpiryElement
+} from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { Button } from '@material-ui/core';
+import useAuth from 'customHooks/useAuth';
 
 export default function PaymentForm() {
   const [success, setSuccess] = useState(false);
+  const { emptyCart } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const { enqueueSnackbar } = useSnackbar();
@@ -27,7 +37,7 @@ export default function PaymentForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const card = elements.getElement(CardElement);
+    const card = elements.getElement(CardNumberElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card
@@ -56,16 +66,16 @@ export default function PaymentForm() {
             enqueueSnackbar('Payment Successful!', {
               variant: 'success'
             });
-          } else {
-            enqueueSnackbar('Payment failed!', {
-              variant: 'error'
+            enqueueSnackbar('Happy Reading!', {
+              variant: 'success'
             });
+            emptyCart();
+            return;
           }
-        } else {
-          enqueueSnackbar(response.data.msg, {
-            variant: 'error'
-          });
         }
+        enqueueSnackbar('Payment failed! Please try again!', {
+          variant: 'error'
+        });
       } catch (err) {
         enqueueSnackbar(err, {
           variant: 'error'
@@ -77,8 +87,26 @@ export default function PaymentForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <CardElement options={CARD_OPTIONS} />
-        <button>Pay</button>
+        <label>
+          Card number
+          <CardNumberElement options={CARD_OPTIONS} />
+        </label>
+        <label>
+          Expiration date
+          <CardExpiryElement options={CARD_OPTIONS} />
+        </label>
+        <label>
+          CVC
+          <CardCvcElement options={CARD_OPTIONS} />
+        </label>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="submit"
+          disabled={!stripe}
+        >
+          Pay
+        </Button>
       </form>
     </>
   );

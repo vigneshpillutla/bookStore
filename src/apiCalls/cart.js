@@ -45,10 +45,19 @@ export const getCartDetails = async (done = defFunction) => {
   return res.data;
 };
 
+export const emptyCart = async (done = defFunction) => {
+  const res = await axios.get(`${cartUrl}/empty`, {
+    ...axiosCng,
+    withCredentials: true
+  });
+  done(res.data);
+};
+
 const Cart = {
   addToCart,
   removeFromCart,
   getCart,
-  getCartDetails
+  getCartDetails,
+  emptyCart
 };
 export default Cart;

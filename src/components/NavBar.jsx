@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   appBar: {
-    position: 'sticky'
+    position: 'relative'
   },
   search: {
     flexGrow: 1,
@@ -212,7 +212,7 @@ const NavBar = () => {
       <div className={clsx(classes.accActions, classes.authBtns)}>
         <Link to="/cart">
           <IconButton>
-            <Badge badgeContent={cart.length} color="secondary">
+            <Badge badgeContent={cart.length} color="secondary" showZero>
               <ShoppingCartOutlinedIcon />
             </Badge>
           </IconButton>

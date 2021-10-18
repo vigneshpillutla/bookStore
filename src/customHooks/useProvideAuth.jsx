@@ -89,6 +89,12 @@ const useProvideAuth = () => {
     const data = await Cart.getCartDetails();
     done(data);
   };
+
+  const emptyCart = () => {
+    Cart.emptyCart((data) => {
+      setCart(data.cart);
+    });
+  };
   return {
     user,
     login,
@@ -103,7 +109,8 @@ const useProvideAuth = () => {
     removeFromCart,
     getCart,
     getCartItems,
-    cart
+    cart,
+    emptyCart
   };
 };
 

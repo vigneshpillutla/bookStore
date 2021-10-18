@@ -11,8 +11,11 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import useAuth from 'customHooks/useAuth';
 import TrashCan from 'media/icons8-trash.svg';
+import StripeContainer from 'components/PaymentForm/StripeContainer';
+import media from 'media/index.js';
+console.log(media);
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '3rem'
   },
@@ -64,6 +67,30 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem'
+  },
+  creditInfo: {
+    marginTop: '2rem',
+    '& > form': {
+      padding: '1rem'
+    },
+    '& label': {
+      color: '#6b7c93',
+      fontWeight: 300,
+      letterSpacing: '0.025em'
+    },
+    '& .StripeElement': {
+      margin: '0.5rem 0'
+    }
+  },
+  emptyCart: {
+    background: `url("${media.EmptyCart}") no-repeat center`,
+    backgroundSize: 'contain',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    filter: 'opacity(0.6)',
+    width: '100%',
+    height: '80%'
   }
 }));
 
@@ -124,13 +151,18 @@ const CheckoutCard = ({ cartItems }) => {
   }, 0);
 
   return (
-    <Card elevation={3} className={clsx(classes.card, classes.checkout)}>
-      <Typography variant="h6">Total:</Typography>
-      <Typography variant="h3">₹ {price}</Typography>
-      <Button variant="contained" color="secondary" fullWidth>
-        Checkout
-      </Button>
-    </Card>
+    <>
+      <Card elevation={3} className={clsx(classes.card, classes.checkout)}>
+        <Typography variant="h6">Total:</Typography>
+        <Typography variant="h3">₹ {price}</Typography>
+        {/* <Button variant="contained" color="secondary" fullWidth>
+          Checkout
+        </Button> */}
+      </Card>
+      <Card elevation={3} className={classes.creditInfo}>
+        <StripeContainer />
+      </Card>
+    </>
   );
 };
 
@@ -144,6 +176,9 @@ const Cart = () => {
       setCartItems(data.books);
     });
   }, [JSON.stringify(cart)]);
+  if (cartItems.length === 0) {
+    return <div className={classes.emptyCart}></div>;
+  }
   return (
     <div className={classes.root}>
       <Grid container className={classes.cartGrid} spacing={3}>
