@@ -42,16 +42,6 @@ const ReadPage = (props) => {
       setIsDataFetched(true);
     };
     getDetails();
-    // const url = 'http://localhost:3001/getBookDetails?n=' + props.bookName;
-    // fetch(url)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((res) => {
-    //     setContentIndex(res.data.contentsGuide);
-    //     setBookInfo({ name: res.data.bookName, pages: res.data.pages });
-    //     setIsDataFetched(true);
-    //   });
   }, [bookId]);
   return (
     <>
@@ -65,7 +55,7 @@ const ReadPage = (props) => {
         setIsPotrait={setIsPotrait}
       />
       <Book
-        bookName={bookInfo.name}
+        bookId={bookId}
         pages={bookInfo.pages}
         isDataFetched={isDataFetched}
         isBookmarking={isBookmarking}
