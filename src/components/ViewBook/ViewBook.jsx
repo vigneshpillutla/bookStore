@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import BookLibrary from 'common/bookUtil';
 import BookShowCase from 'components/Home/BookShowCase';
+import FavouriteIcon from '@material-ui/icons/Favorite';
 import {
   makeStyles,
   Grid,
@@ -48,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ViewBook = () => {
   const library = new BookLibrary();
-  const { addToCart } = useAuth();
+  const { addToCart, user, addToMyFavourites, removeFromMyFavourites } =
+    useAuth();
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [filters, setFilters] = useState([]);
@@ -112,7 +114,49 @@ const ViewBook = () => {
 
     return !!excerpt ? GridItem : null;
   };
+  const AdditionalButton = () => {
+    const { myBooks, myFavourites } = user;
 
+    const handleFavourites = (action) => {
+      if (action === 'ADD') {
+        addToMyFavourites(bookId);
+      }
+
+      if (action === 'REMOVE') {
+        removeFromMyFavourites(bookId);
+      }
+    };
+    let btn = (
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={() => handleAddToCart(book.bookId)}
+      >
+        Add to cart
+      </Button>
+    );
+    if (myBooks.includes(book.bookId)) {
+      let txt = 'Add to Favourites';
+      let click = () => handleFavourites('ADD');
+      if (myFavourites.includes(bookId)) {
+        txt = 'Remove from Favourites';
+        click = () => handleFavourites('REMOVE');
+      }
+      btn = (
+        <Button
+          variant="outlined"
+          color="secondary"
+          startIcon={<FavouriteIcon />}
+          onClick={click}
+        >
+          {txt}
+        </Button>
+      );
+    }
+
+    return btn;
+  };
+  console.log(user, book.bookId);
   return (
     <div className={classes.root}>
       <Grid container>
@@ -132,13 +176,14 @@ const ViewBook = () => {
               <Typography>Rating: {book.rating} / 5</Typography>
             </Grid>
             <Grid item xs={12} className={classes.actions}>
-              <Button
+              {/* <Button
                 variant="outlined"
                 color="secondary"
                 onClick={() => handleAddToCart(book.bookId)}
               >
                 Add to cart
-              </Button>
+              </Button> */}
+              <AdditionalButton />
               <Button variant="outlined" color="secondary">
                 Read Now
               </Button>

@@ -1,0 +1,106 @@
+.toolbar-cont {
+    background-color: transparent;
+    position: fixed;
+    height: 100%;
+    top: 0px;
+}
+.tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(255, 255, 255, 0.582);
+    border: 1px solid lightgray;
+    display: block;
+    margin: 16px;
+    cursor: pointer;
+}
+.tool-btn:hover {
+    box-shadow: 0px 0px 14px 2px lightgrey;
+}
+.tool-btn:active {
+    background-color: rgb(233, 233, 233);
+}
+.index-cont {
+    width: 225px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 8px 2px lightgray;
+    height: 95vh;
+    padding: 8px;
+    border-radius: 20px;
+    transition: right 0.2s ease;
+}
+.contents-list {
+    overflow: auto;
+}
+.content-item {
+    margin: 2px;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+.content-item:hover {
+    box-shadow: 0px 0px 8px 2px lightgray;
+    border-radius: 8px;
+    background-color: white;
+}
+.title-cont {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
+.close-btn {
+    background-color: rgba(255, 255, 255, 0.582);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.582);
+    box-shadow: 0px 0px 8px 2px lightgray;
+}
+.title {
+    margin: 0px 0px;
+    font-size: 24px;
+}
+.book-cont {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.book-page {
+    margin: 16px auto;
+    display: block;
+    padding: 16px;
+    overflow: hidden;
+    max-width: 60%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 16px 2px lightgray;
+}
+.book-title {
+    box-shadow: 4px 0px 4px lightgrey;
+    padding: 20px 100px;
+    font-size: 24px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: white;
+}
+::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 1px lightgray;
+}
+
+.highlight-color {
+    background-color: yellow;
+}

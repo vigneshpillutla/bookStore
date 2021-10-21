@@ -5,6 +5,7 @@ import ViewBook from './ViewBook/ViewBook.jsx';
 import Explore from './Explore/Explore.jsx';
 import Cart from './Cart/Cart.jsx';
 import StripeContainer from './PaymentForm/StripeContainer.jsx';
+import ReadPage from './ReadPage/ReadPage.js';
 
 export {
   LoginPage,
@@ -13,5 +14,6 @@ export {
   ViewBook,
   Explore,
   Cart,
-  StripeContainer
+  StripeContainer,
+  ReadPage
 };

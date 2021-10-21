@@ -5,7 +5,8 @@ import {
   ViewBook,
   Explore,
   Cart,
-  StripeContainer
+  StripeContainer,
+  ReadPage
 } from 'components';
 
 const routes = [
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/books/view/:bookId',
     component: ViewBook
+  },
+  {
+    path: '/books/read/:bookId',
+    component: ReadPage
   },
   {
     path: '/login',

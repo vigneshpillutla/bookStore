@@ -14,7 +14,7 @@ import useAuth from 'customHooks/useAuth';
 
 export default function PaymentForm() {
   const [success, setSuccess] = useState(false);
-  const { emptyCart } = useAuth();
+  const { emptyCart, addCartToMyBooks } = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const { enqueueSnackbar } = useSnackbar();
@@ -69,7 +69,9 @@ export default function PaymentForm() {
             enqueueSnackbar('Happy Reading!', {
               variant: 'success'
             });
-            emptyCart();
+            addCartToMyBooks((myBooks) => {
+              emptyCart();
+            });
             return;
           }
         }

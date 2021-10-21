@@ -33,6 +33,7 @@ const useProvideAuth = () => {
         setUser(res.user);
         getCart(done);
       }
+      done();
     });
   };
   const signUp = (user, onSuccess) => {
@@ -95,6 +96,38 @@ const useProvideAuth = () => {
       setCart(data.cart);
     });
   };
+
+  const addCartToMyBooks = async (done = () => {}) => {
+    const data = await Cart.addCartToMyBooks();
+    const myBooks = data.myBooks ?? [];
+    setUser((prev) => ({
+      ...prev,
+      myBooks
+    }));
+    done(data.myBooks ?? []);
+  };
+
+  const addToMyFavourites = async (bookId, done = () => {}) => {
+    const data = await UserAuth.addToMyFavourites(bookId);
+    const myFavourites = data.myFavourites ?? [];
+    setUser((prev) => ({
+      ...prev,
+      myFavourites
+    }));
+    enqueueSnackbar(data.msg, { variant: data.success ? 'success' : 'error' });
+    done(myFavourites);
+  };
+
+  const removeFromMyFavourites = async (bookId, done = () => {}) => {
+    const data = await UserAuth.removeFromMyFavourites(bookId);
+    const myFavourites = data.myFavourites ?? [];
+    setUser((prev) => ({
+      ...prev,
+      myFavourites
+    }));
+    enqueueSnackbar(data.msg, { variant: data.success ? 'success' : 'error' });
+    done(myFavourites);
+  };
   return {
     user,
     login,
@@ -110,7 +143,10 @@ const useProvideAuth = () => {
     getCart,
     getCartItems,
     cart,
-    emptyCart
+    emptyCart,
+    addCartToMyBooks,
+    addToMyFavourites,
+    removeFromMyFavourites
   };
 };
 

@@ -5,6 +5,7 @@ import { axiosCng } from 'common';
 const serverPath = keys.serverDomain;
 const authUrl = `${serverPath}/api/auth`;
 const socialAuth = `${serverPath}/api/oauth`;
+const userActionUrl = `${serverPath}/api/user`;
 
 // Cache-Control header to be implemented with axios interceptor.
 const googleSignIn = () => {
@@ -64,12 +65,41 @@ const signUp = async (user, done) => {
   done(response.data);
 };
 
+const addToMyFavourites = async (bookId) => {
+  const response = await axios.post(
+    `${userActionUrl}/addToMyFavourites`,
+    {
+      bookId
+    },
+    {
+      ...axiosCng,
+      withCredentials: true
+    }
+  );
+  return response.data;
+};
+const removeFromMyFavourites = async (bookId) => {
+  const response = await axios.post(
+    `${userActionUrl}/removeFromMyFavourites`,
+    {
+      bookId
+    },
+    {
+      ...axiosCng,
+      withCredentials: true
+    }
+  );
+  return response.data;
+};
+
 const UserAuth = {
   login,
   logout,
   signUp,
   getUser,
-  googleSignIn
+  googleSignIn,
+  addToMyFavourites,
+  removeFromMyFavourites
 };
 
 export default UserAuth;
