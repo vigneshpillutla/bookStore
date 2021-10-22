@@ -173,6 +173,7 @@
     width: 200px;
     flex-direction: column;
     border-radius: 5px 15px 15px 15px;
+    background-color: white;
 }
 .add-btn {
     display: flex;

@@ -20,7 +20,11 @@ const bookDetailsUrl = `${serverPath}/api/readBook`;
 
 const ReadPage = (props) => {
     const [contentIndex, setContentIndex] = useState([]);
-    const [bookInfo, setBookInfo] = useState({ name: "unknown", pages: -1 });
+    const [bookInfo, setBookInfo] = useState({
+        id: null,
+        name: "unknown",
+        pages: -1,
+    });
     const [isDataFetched, setIsDataFetched] = useState(false);
     const [isBookmarking, setIsBookMarking] = useState(false);
     const [showIndexBar, setShowIndexBar] = useState(false);
@@ -58,14 +62,14 @@ const ReadPage = (props) => {
             }
             const { data } = res.data;
             setContentIndex(data.contentsGuide);
-            setBookInfo({ name: data.bookName, pages: data.pages });
+            setBookInfo({ id: bookId, name: data.bookName, pages: data.pages });
             setIsDataFetched(true);
         };
         getDetails();
         library.getSingleBook(bookId, (bookData) => {
             console.log(bookData);
             setBookdata({
-                bookId: bookData.bookId,
+                bookId: bookId,
                 bookName: bookData.name,
                 author: bookData.author,
                 pages: bookData.pages,
@@ -73,16 +77,6 @@ const ReadPage = (props) => {
                 genres: bookData.genres,
             });
         });
-        // const url = 'http://localhost:3001/getBookDetails?n=' + props.bookName;
-        // fetch(url)
-        //   .then((res) => {
-        //     return res.json();
-        //   })
-        //   .then((res) => {
-        //     setContentIndex(res.data.contentsGuide);
-        //     setBookInfo({ name: res.data.bookName, pages: res.data.pages });
-        //     setIsDataFetched(true);
-        //   });
     }, [bookId]);
     return (
         <div style={{ cursor: isBookmarking ? "grab" : "default" }}>
@@ -100,7 +94,8 @@ const ReadPage = (props) => {
             />
             <Book
                 bookName={bookdata.bookName}
-                pages={bookdata.pages}
+                bookId={bookInfo.id}
+                pages={bookInfo.pages}
                 isDataFetched={isDataFetched}
                 isBookmarking={isBookmarking}
                 isHighlighting={isHighlighting}

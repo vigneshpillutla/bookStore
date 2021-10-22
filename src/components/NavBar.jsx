@@ -1,6 +1,6 @@
 import useAuth from 'customHooks/useAuth';
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -147,6 +147,8 @@ const NavBar = () => {
   const library = new BookLibrary();
   const history = useHistory();
   const btnRef = React.useRef();
+  const location = useLocation();
+  const shouldShow = !location.pathname.split('/').includes('read');
   useEffect(() => {
     setAnchor(btnRef.current);
   }, [btnRef]);
@@ -264,7 +266,7 @@ const NavBar = () => {
       </div>
     );
   };
-  return (
+  return shouldShow ? (
     <>
       <AppBar
         classes={{
@@ -316,6 +318,8 @@ const NavBar = () => {
       </AppBar>
       <AuthModal />
     </>
+  ) : (
+    <></>
   );
 };
 

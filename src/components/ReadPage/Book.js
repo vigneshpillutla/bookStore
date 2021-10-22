@@ -1,4 +1,10 @@
 import react, { useCallback, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import keys from "configs/keys.js";
+import { axiosCng } from "common";
+import { useParams, useHistory } from "react-router-dom";
+const serverPath = keys.serverDomain;
+const bookDetailsPath = `${serverPath}/api/readBook`;
 
 export const Book = (props) => {
     const [pagesData, setPagesData] = useState([]);
@@ -9,41 +15,31 @@ export const Book = (props) => {
         return json;
     };
 
-    // useEffect(() => {
-    //     if (props.isDataFetched) {
-    //         const newData = [];
-    //         for (let i = 0; i < props.pages; i++) {
-    //             newData.push({
-    //                 id: "",
-    //                 html: "",
-    //                 target: "",
-    //             });
-    //         }
-    //         for (let i = 1; i <= props.pages; i++) {
-    //             const url =
-    //                 "http://localhost:3001/read?n=" +
-    //                 props.bookName +
-    //                 "&p=" +
-    //                 i;
-    //             // const url =
-    //             //     "http://localhost:5000/api/readBook/read?n=" +
-    //             //     props.bookName +
-    //             //     "&p=" +
-    //             //     i;
-    //             (async () => {
-    //                 const json = await getPage(url);
-    //                 newData[json.pageNo - 1].id = json.pageNo;
-    //                 newData[json.pageNo - 1].html = json.data;
-    //                 newData[json.pageNo - 1].target = json.target;
+    useEffect(() => {
+        if (props.isDataFetched) {
+            const newData = [];
+            for (let i = 0; i < props.pages; i++) {
+                newData.push({
+                    id: "",
+                    html: "",
+                    target: "",
+                });
+            }
+            for (let i = 1; i <= props.pages; i++) {
+                const url = `${bookDetailsPath}/read?bookId=${props.bookId}&p=${i}`;
+                (async () => {
+                    const json = await getPage(url);
+                    newData[json.pageNo - 1].id = json.pageNo;
+                    newData[json.pageNo - 1].html = json.data;
+                    newData[json.pageNo - 1].target = json.target;
 
-    //                 if (i == props.pages) {
-    //                     setPagesData(newData);
-    //                 }
-    //             })();
-    //         }
-    //     }
-    //     console.log(props.isDataFetched);
-    // }, [props.isDataFetched]);
+                    if (i == props.pages) {
+                        setPagesData(newData);
+                    }
+                })();
+            }
+        }
+    }, [props.isDataFetched]);
 
     return (
         <>
@@ -64,6 +60,8 @@ export const Book = (props) => {
         </>
     );
 };
+
+// [2,3,5,1,offset,endIndex]
 
 const saveHighlight = (ref, id) => {
     const selection = ref.current.contentDocument.getSelection();
@@ -92,7 +90,7 @@ const Page = (props) => {
     useEffect(() => {
         refw.current.addEventListener("load", () => {
             refw.current.height =
-                refw.current.contentDocument.documentElement.scrollHeight;
+                refw.current.contentWindow.document.body.clientHeight + 150;
         });
     }, []);
 
