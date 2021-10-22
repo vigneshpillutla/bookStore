@@ -9,14 +9,20 @@
     height: 40px;
     border-radius: 10px;
     border: none;
-    background-color: rgb(255, 255, 255, 0.582);
+    background-color: white;
     border: 1px solid lightgray;
     display: block;
-    margin: 16px;
+    margin: 20px 20px;
     cursor: pointer;
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+.tool-btn svg {
+    vertical-align: middle;
 }
 .tool-btn:hover {
-    box-shadow: 0px 0px 14px 2px lightgrey;
+    box-shadow: 0px 5px 5px -2px rgb(0 0 0 / 20%),
+        0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 2px 9px 0px rgb(0 0 0 / 12%);
 }
 .tool-btn:active {
     background-color: rgb(233, 233, 233);
@@ -29,7 +35,6 @@
     top: 10px;
     right: 10px;
     background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0px 0px 8px 2px lightgray;
     height: 95vh;
     padding: 8px;
     border-radius: 20px;
@@ -44,7 +49,9 @@
     padding: 8px 16px;
 }
 .content-item:hover {
-    box-shadow: 0px 0px 8px 2px lightgray;
+    /* box-shadow: 0px 0px 8px 2px lightgray; */
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
     border-radius: 8px;
     background-color: white;
 }
@@ -55,11 +62,14 @@
 }
 .close-btn {
     background-color: rgba(255, 255, 255, 0.582);
-    padding: 10px 15px;
     border: none;
     border-radius: 10px;
-
     cursor: pointer;
+    height: 35px;
+}
+.close-btn > svg {
+    vertical-align: middle;
+    height: 20px;
 }
 .close-btn:hover {
     background-color: rgba(255, 255, 255, 0.582);
@@ -87,9 +97,15 @@
     box-shadow: 0px 0px 16px 2px lightgray;
 }
 .book-title {
-    box-shadow: 4px 0px 4px lightgrey;
+    /* box-shadow: 4px 0px 4px lightgrey; */
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+        0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
     padding: 20px 100px;
     font-size: 24px;
+}
+.elevated {
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 ::-webkit-scrollbar {
     width: 8px;
@@ -103,4 +119,85 @@
 
 .highlight-color {
     background-color: yellow;
+}
+
+.info-cont {
+    background-color: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 16px;
+    max-width: 300px;
+    transition: right 0.2s ease;
+}
+.info-title-cont {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    align-items: center;
+}
+.main-info-cont {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.info-bookname {
+    font-size: 18px;
+}
+.main-info-cont div {
+    margin: 4px;
+}
+.genres-cont {
+    display: flex;
+}
+.genre-badge {
+    background-color: lightgray;
+    width: fit-content;
+    padding: 2px 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+.genre-badge div {
+    margin-right: 8px;
+    background-color: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+}
+.bookmark-cont {
+    top: 100px;
+    left: 80px;
+    position: fixed;
+    width: 200px;
+    flex-direction: column;
+    border-radius: 5px 15px 15px 15px;
+}
+.add-btn {
+    display: flex;
+    color: black;
+    align-items: center;
+    justify-content: center;
+}
+.bkmrk-item {
+    padding: 4px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.bkmrk-item:hover {
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+    border-radius: 8px;
+}
+.bkmrk-item > svg {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+.delete-btn {
+    padding: 3px;
+    height: 30px;
+    width: 30px;
 }
