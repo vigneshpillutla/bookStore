@@ -5,6 +5,7 @@ import { axiosCng } from "common";
 import { useParams, useHistory } from "react-router-dom";
 const serverPath = keys.serverDomain;
 const bookDetailsPath = `${serverPath}/api/readBook`;
+const bookMarksPath = `${serverPath}/api/bookmarks`;
 
 export const Book = (props) => {
     const [pagesData, setPagesData] = useState([]);
@@ -48,11 +49,16 @@ export const Book = (props) => {
                 {pagesData.map((page) => {
                     return (
                         <Page
+                            bookId= {props.bookId}
                             key={page.id}
                             id={page.target}
                             html={page.html}
+                            pageNo={page.id}
                             isBookmarking={props.isBookmarking}
+                            setIsBookMarking = {props.setIsBookMarking}
                             isHighlighting={props.isHighlighting}
+                            bookMarks = {props.bookMarks}
+                            setBookMarks = {props.setBookMarks}
                         />
                     );
                 })}
@@ -61,11 +67,8 @@ export const Book = (props) => {
     );
 };
 
-// [2,3,5,1,offset,endIndex]
-
 const saveHighlight = (ref, id) => {
     const selection = ref.current.contentDocument.getSelection();
-    console.log(selection);
     const start = selection.anchorOffset;
     const l = selection.toString().length;
     const first = selection.anchorNode.parentNode.innerHTML.slice(0, start);
@@ -80,8 +83,23 @@ const saveHighlight = (ref, id) => {
 const Page = (props) => {
     const refw = useRef(null);
 
-    const addBookMark = useCallback(() => {
-        console.log(props.id);
+    const addBookMark = useCallback(async () => {
+        const bookmarkName = refw.current.getAttribute("data-name");
+        const newBookMark = {
+            bookId: props.bookId,
+            bookmark: props.id,
+            bkname: bookmarkName
+        }
+        const res = await axios.post(bookMarksPath, 
+            newBookMark,
+            {
+                ...axiosCng,
+                withCredentials: true,
+            },
+        );
+        
+        props.setBookMarks(res.data.bookmarks);
+        props.setIsBookMarking(false);
     }, []);
     const stopHighlight = useCallback(() => {
         saveHighlight(refw, props.id);
@@ -122,10 +140,12 @@ const Page = (props) => {
     return (
         <>
             <iframe
+                scrolling="no"
                 id={props.id}
                 className='book-page'
                 ref={refw}
                 srcDoc={props.html}
+                data-name={props.pageNo}
             ></iframe>
         </>
     );
