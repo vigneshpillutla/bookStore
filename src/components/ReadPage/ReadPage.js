@@ -33,6 +33,7 @@ const ReadPage = (props) => {
     const [showIndexBar, setShowIndexBar] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showBookMCont, setShowBookMCont] = useState(false);
+    const [showHighlightCont, setShowHighlightCont] = useState(false);
     const [isHighlighting, setIsHighlighting] = useState(false);
     const [bookdata, setBookdata] = useState({
         bookId: null,
@@ -43,6 +44,7 @@ const ReadPage = (props) => {
         genres: [],
     });
     const [bookMarks, setBookMarks] = useState([]);
+    const [highlightColor, setHighlightColor] = useState("tomato");
     const toggleBookMark = () => setIsBookMarking(!isBookmarking);
     const history = useHistory();
     let { bookId } = useParams();
@@ -125,6 +127,8 @@ const ReadPage = (props) => {
                 showBookMCont={showBookMCont}
                 setShowBookMCont={setShowBookMCont}
                 isBookmarking={isBookmarking}
+                showHighlightCont={showHighlightCont}
+                setShowHighlightCont={setShowHighlightCont}
             />
             <Book
                 bookName={bookdata.bookName}
@@ -136,6 +140,7 @@ const ReadPage = (props) => {
                 isHighlighting={isHighlighting}
                 bookMarks = {bookMarks}
                 setBookMarks = {setBookMarks}
+                highlightColor={highlightColor}
             />
             <Index
                 contentIndex={contentIndex}
@@ -152,6 +157,12 @@ const ReadPage = (props) => {
                 toggleBookMark={toggleBookMark}
                 bookMarks={bookMarks}
                 deleteBookMark={deleteBookMark}
+            />
+            <HighlightCont
+                showHighlightCont={showHighlightCont}
+                setShowHighlightCont={setShowHighlightCont}
+                highlightColor={highlightColor}
+                setHighlightColor={setHighlightColor}
             />
         </div>
     );
@@ -179,9 +190,10 @@ const ToolBar = (props) => {
                 </button>
                 <button
                     className='tool-btn'
-                    onClick={() =>
-                        props.setIsHighlighting(!props.isHighlighting)
-                    }
+                    onClick={() => {
+                        props.setIsHighlighting(!props.isHighlighting);
+                        props.setShowHighlightCont(!props.showHighlightCont);
+                    }}
                     style={{backgroundColor: props.isHighlighting? "#dbf6ff" : "white"}}
                 >
                     <BrushRoundedIcon />
@@ -330,4 +342,35 @@ const BookMarkCont = (props) => {
         </div>
     );
 };
+
+const HighlightCont = (props) => {
+    const selectedClass = "selected-color elevated color-block";
+    // const colors = [
+    //     "#95e4f9",
+    //     "#f99595",
+    //     "#f9f995",
+    //     "#b6f995"
+    // ];
+    const colors = [
+        "#47b6ff",
+        "tomato",
+        "#e6ff47",
+        "#67ff47"
+    ];
+    return <div
+            className="highlight-cont elevated"
+            style={{display: props.showHighlightCont ? "flex": "none"}}>
+            {
+                colors.map((color) => {
+                    return <div
+                        className={props.highlightColor == color ? selectedClass : "color-block"}
+                        style={{backgroundColor:color}}
+                        onClick={ () => {
+                            props.setHighlightColor(color);
+                        }}>
+                    </div>;
+                })
+            }
+        </div>;
+}
 export default ReadPage;
