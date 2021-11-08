@@ -3,7 +3,9 @@ import {
   getEditorsChoice,
   getBooksByFilter,
   getSingleBook,
-  getAllBooks
+  getAllBooks,
+  getMyBooksDetails,
+  getMyFavouritesDetails
 } from 'apiCalls/books';
 
 const defaultFunction = () => {};
@@ -41,6 +43,16 @@ class BookLibrary {
       const { books } = res;
       done(books);
     });
+  }
+
+  async getMyBooksDetails(done = defaultFunction) {
+    const data = await getMyBooksDetails();
+    done(data);
+  }
+
+  async getMyFavouritesDetails(done = defaultFunction) {
+    const data = await getMyFavouritesDetails();
+    done(data);
   }
 }
 

@@ -13,6 +13,7 @@ import useAuth from 'customHooks/useAuth';
 import TrashCan from 'media/icons8-trash.svg';
 import StripeContainer from 'components/PaymentForm/StripeContainer';
 import media from 'media/index.js';
+import BookDisplay from 'components/BookDisplay/BookDisplay';
 console.log(media);
 
 const useStyles = makeStyles((theme) => ({
@@ -170,6 +171,7 @@ const Cart = () => {
   const classes = useStyles();
   const [cartItems, setCartItems] = useState([]);
   const { getCartItems, cart } = useAuth();
+  const heading = `Cart (${cartItems.length} items)`;
 
   useEffect(() => {
     getCartItems((data) => {
@@ -183,7 +185,8 @@ const Cart = () => {
     <div className={classes.root}>
       <Grid container className={classes.cartGrid} spacing={3}>
         <Grid item xs={8}>
-          <CartItems cartItems={cartItems} />
+          <BookDisplay heading={heading} type="CART" books={cartItems} />
+          {/* <CartItems cartItems={cartItems} /> */}
         </Grid>
         <Grid item xs={4}>
           <CheckoutCard cartItems={cartItems} />

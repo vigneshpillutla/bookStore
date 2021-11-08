@@ -41,3 +41,19 @@ export const getAllBooks = async (done) => {
   const res = await axios.get(bookUrl);
   done(res.data);
 };
+
+export const getMyBooksDetails = async () => {
+  const response = await axios.get(`${bookUrl}/myBooks`, {
+    ...axiosCng,
+    withCredentials: true
+  });
+  return response.data;
+};
+
+export const getMyFavouritesDetails = async () => {
+  const response = await axios.get(`${bookUrl}/myFavourites`, {
+    ...axiosCng,
+    withCredentials: true
+  });
+  return response.data;
+};

@@ -128,6 +128,7 @@ const useProvideAuth = () => {
     enqueueSnackbar(data.msg, { variant: data.success ? 'success' : 'error' });
     done(myFavourites);
   };
+
   return {
     user,
     login,

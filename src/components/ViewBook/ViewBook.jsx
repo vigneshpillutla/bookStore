@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import BookLibrary from 'common/bookUtil';
 import BookShowCase from 'components/Home/BookShowCase';
 import FavouriteIcon from '@material-ui/icons/Favorite';
+import { Link } from 'react-router-dom';
+
 import {
   makeStyles,
   Grid,
@@ -19,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '3.5em'
   },
+  content: {
+    marginLeft: '1rem'
+  },
   coverContainer: {
     display: 'flex',
     '& > img': {
@@ -29,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   actions: {
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: '1rem'
   },
   details: {
     textAlign: 'center',
@@ -45,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   moreLikeThis: {
     textAlign: 'center',
     marginTop: '4rem'
+  },
+  noWrapBtn: {
+    whiteSpace: 'nowrap'
   }
 }));
 const ViewBook = () => {
@@ -116,6 +125,7 @@ const ViewBook = () => {
   };
   const AdditionalButton = () => {
     const { myBooks, myFavourites } = user;
+    const classes = useStyles();
 
     const handleFavourites = (action) => {
       if (action === 'ADD') {
@@ -148,6 +158,7 @@ const ViewBook = () => {
           color="secondary"
           startIcon={<FavouriteIcon />}
           onClick={click}
+          className={classes.noWrapBtn}
         >
           {txt}
         </Button>
@@ -176,20 +187,19 @@ const ViewBook = () => {
               <Typography>Rating: {book.rating} / 5</Typography>
             </Grid>
             <Grid item xs={12} className={classes.actions}>
-              {/* <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => handleAddToCart(book.bookId)}
-              >
-                Add to cart
-              </Button> */}
               <AdditionalButton />
-              <Button variant="outlined" color="secondary">
-                Read Now
-              </Button>
+              <Link to={`/books/read/${book.bookId}`}>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  className={classes.noWrapBtn}
+                >
+                  Read Now
+                </Button>
+              </Link>
             </Grid>
           </Grid>
-          <Grid item container xs={8} spacing={4}>
+          <Grid item container xs={7} spacing={4} className={classes.content}>
             <Grid item className={classes.title} xs={12}>
               <Typography variant="h4">{book.name}</Typography>
               <Typography variant="subtitle1" className={classes.bookTitle}>

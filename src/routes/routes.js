@@ -6,7 +6,8 @@ import {
   Explore,
   Cart,
   StripeContainer,
-  ReadPage
+  ReadPage,
+  MyBooks
 } from 'components';
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
   {
     path: '/temp/payment',
     component: StripeContainer,
+    private: true
+  },
+  {
+    path: '/myBooks',
+    component: MyBooks,
     private: true
   }
 ];
