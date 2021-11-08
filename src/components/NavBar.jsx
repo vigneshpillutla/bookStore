@@ -16,7 +16,11 @@ import {
   Popover,
   Popper,
   Paper,
-  Badge
+  Badge,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
 } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import { alpha, makeStyles } from '@material-ui/core/styles';
@@ -26,6 +30,8 @@ import { useGuest } from './AuthModal/AuthModal';
 import BookLibrary from '../common/bookUtil';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
+import MyBooksIcon from '@material-ui/icons/MenuBook';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -130,8 +136,11 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       position: 'absolute',
       top: '4.5rem',
-      right: '3rem',
-      padding: '2rem'
+      right: '3rem'
+      // padding: '2rem',
+    },
+    '& a': {
+      color: 'inherit'
     }
   }
 }));
@@ -236,13 +245,29 @@ const NavBar = () => {
             className={classes.popup}
           >
             <Paper elevation={3}>
-              <Button
+              <List component="nav">
+                <Link to="/myBooks">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <MyBooksIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="My Books" />
+                  </ListItem>
+                </Link>
+                <ListItem button onClick={handleLogout}>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItem>
+              </List>
+              {/* <Button
                 variant="outlined"
                 color="secondary"
                 onClick={handleLogout}
               >
                 Sign Out
-              </Button>
+              </Button> */}
             </Paper>
           </Popper>
         </div>
