@@ -33,6 +33,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import MyBooksIcon from '@material-ui/icons/MenuBook';
 import clsx from 'clsx';
+import { PaletteSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   navTabRoot: {
-    width: '25%',
+    width: '50%',
     minWidth: '25%'
   },
   tabList: {
@@ -161,6 +162,13 @@ const NavBar = () => {
   useEffect(() => {
     setAnchor(btnRef.current);
   }, [btnRef]);
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setActivePage(0);
+    } else {
+      setActivePage(1);
+    }
+  }, [location.pathname]);
   const openNav = (e) => {
     setAnchor(btnRef.current);
   };
@@ -179,7 +187,7 @@ const NavBar = () => {
     }
   };
   const handlePageChange = (event, value) => {
-    setActivePage(value);
+    // setActivePage(value);
   };
 
   const handleActionButton = (type) => {
@@ -191,7 +199,16 @@ const NavBar = () => {
     logout();
   };
   const PageNavigation = () => {
-    const navTabs = ['Home', 'Explore', 'About', 'Contacts'];
+    const navTabs = [
+      {
+        text: 'Home',
+        path: '/'
+      },
+      {
+        text: 'Explore',
+        path: '/explore'
+      }
+    ];
     return (
       <Tabs
         indicatorColor="secondary"
@@ -199,12 +216,14 @@ const NavBar = () => {
         onChange={handlePageChange}
         className={classes.tabList}
       >
-        {navTabs.map((name) => (
+        {navTabs.map(({ text, path }) => (
           <Tab
-            label={name}
+            label={text}
             classes={{
               root: classes.navTabRoot
             }}
+            component={Link}
+            to={path}
           />
         ))}
       </Tabs>

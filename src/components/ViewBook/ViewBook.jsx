@@ -185,6 +185,7 @@ const ViewBook = () => {
             <Grid item xs={12} className={classes.details}>
               <Typography>Pages: {book.pages}</Typography>
               <Typography>Rating: {book.rating} / 5</Typography>
+              <Typography>Price: ₹ {book.price}</Typography>
             </Grid>
             <Grid item xs={12} className={classes.actions}>
               <AdditionalButton />
