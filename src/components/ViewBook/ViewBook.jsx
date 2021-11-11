@@ -4,6 +4,7 @@ import BookLibrary from 'common/bookUtil';
 import BookShowCase from 'components/Home/BookShowCase';
 import FavouriteIcon from '@material-ui/icons/Favorite';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -54,16 +55,27 @@ const useStyles = makeStyles((theme) => ({
   },
   noWrapBtn: {
     whiteSpace: 'nowrap'
+  },
+  disabled: {
+    cursor: 'not-allowed',
+    pointerEvents: 'none'
   }
 }));
 const ViewBook = () => {
   const library = new BookLibrary();
-  const { addToCart, user, addToMyFavourites, removeFromMyFavourites } =
-    useAuth();
+  const {
+    addToCart,
+    user,
+    addToMyFavourites,
+    removeFromMyFavourites,
+    canRead
+  } = useAuth();
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [filters, setFilters] = useState([]);
   const classes = useStyles();
+  const readNow = canRead(bookId) || book.price === 0;
+
   useEffect(() => {
     library.getSingleBook(bookId, (bookData) => {
       setBook(bookData);
@@ -145,7 +157,7 @@ const ViewBook = () => {
         Add to cart
       </Button>
     );
-    if (myBooks.includes(book.bookId)) {
+    if (readNow) {
       let txt = 'Add to Favourites';
       let click = () => handleFavourites('ADD');
       if (myFavourites.includes(bookId)) {
@@ -167,7 +179,6 @@ const ViewBook = () => {
 
     return btn;
   };
-  console.log(user, book.bookId);
   return (
     <div className={classes.root}>
       <Grid container>
@@ -189,11 +200,15 @@ const ViewBook = () => {
             </Grid>
             <Grid item xs={12} className={classes.actions}>
               <AdditionalButton />
-              <Link to={`/books/read/${book.bookId}`}>
+              <Link
+                to={`/books/read/${book.bookId}`}
+                className={clsx(!readNow && classes.disabled)}
+              >
                 <Button
                   variant="outlined"
                   color="secondary"
                   className={classes.noWrapBtn}
+                  disabled={!readNow}
                 >
                   Read Now
                 </Button>

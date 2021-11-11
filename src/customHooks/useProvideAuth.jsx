@@ -129,6 +129,9 @@ const useProvideAuth = () => {
     done(myFavourites);
   };
 
+  const canRead = (bookId) => {
+    return user?.myBooks?.includes(bookId);
+  };
   return {
     user,
     login,
@@ -147,7 +150,8 @@ const useProvideAuth = () => {
     emptyCart,
     addCartToMyBooks,
     addToMyFavourites,
-    removeFromMyFavourites
+    removeFromMyFavourites,
+    canRead
   };
 };
 
