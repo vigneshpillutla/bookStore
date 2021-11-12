@@ -68,7 +68,8 @@ const ViewBook = () => {
     user,
     addToMyFavourites,
     removeFromMyFavourites,
-    canRead
+    canRead,
+    isLoggedIn
   } = useAuth();
   const { bookId } = useParams();
   const [book, setBook] = useState({});
@@ -138,7 +139,7 @@ const ViewBook = () => {
   const AdditionalButton = () => {
     const { myBooks, myFavourites } = user ?? {};
     const classes = useStyles();
-
+    const disableButton = !isLoggedIn();
     const handleFavourites = (action) => {
       if (action === 'ADD') {
         addToMyFavourites(bookId);
@@ -160,7 +161,7 @@ const ViewBook = () => {
     if (readNow) {
       let txt = 'Add to Favourites';
       let click = () => handleFavourites('ADD');
-      if (myFavourites.includes(bookId)) {
+      if (myFavourites?.includes(bookId)) {
         txt = 'Remove from Favourites';
         click = () => handleFavourites('REMOVE');
       }
@@ -170,7 +171,8 @@ const ViewBook = () => {
           color="secondary"
           startIcon={<FavouriteIcon />}
           onClick={click}
-          className={classes.noWrapBtn}
+          className={clsx(classes.noWrapBtn, disableButton && classes.disabled)}
+          disabled={disableButton}
         >
           {txt}
         </Button>
