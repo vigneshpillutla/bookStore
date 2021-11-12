@@ -11,9 +11,8 @@ const useStyles = makeStyles(() => ({
 }));
 function MyBooks() {
   const library = new BookLibrary();
-  const {
-    user: { myFavourites }
-  } = useAuth();
+  const { user } = useAuth();
+  const { myFavourites } = user ?? {};
   const [myBooksDetails, setMyBooksDetails] = useState([]);
   const [myFavouritesDetails, setMyFavouritesDetails] = useState([]);
   const classes = useStyles();

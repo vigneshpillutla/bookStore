@@ -136,7 +136,7 @@ const ViewBook = () => {
     return !!excerpt ? GridItem : null;
   };
   const AdditionalButton = () => {
-    const { myBooks, myFavourites } = user;
+    const { myBooks, myFavourites } = user ?? {};
     const classes = useStyles();
 
     const handleFavourites = (action) => {
